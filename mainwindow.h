@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "fileoperator.h"
 
 namespace Ui {
 class MainWindow;
@@ -12,6 +12,9 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private:
+    FileOperator *fileOperator;
+    QStringList createThingsToDoList();
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -19,14 +22,21 @@ public:
 private slots:
     void on_actionAbout_triggered();
 
-    void on_btnClearAll_clicked();
+    void on_removeButton_clicked();
 
-    void on_btnDelete_clicked();
+    void on_addButton_clicked();
 
-    void on_btbAddNew_clicked();
+    void on_actionSave_triggered();
+
+    void on_actionSave_as_triggered();
+
+    void on_actionOpen_triggered();
+
+    void on_actionNew_triggered();
 
 private:
     Ui::MainWindow *ui;
+
 };
 
 #endif // MAINWINDOW_H
