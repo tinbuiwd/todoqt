@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,10 +13,15 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    fileoperator.cpp
+    taskwindow.cpp \
+    calendar.cpp \
+    comboboxdelegate.cpp
 
-HEADERS  += mainwindow.h \
-    fileoperator.h
+HEADERS  += \
+    taskwindow.h \
+    calendar.h \
+    comboboxdelegate.h
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    taskwindow.ui \
+    calendar.ui
