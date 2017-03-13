@@ -1,11 +1,11 @@
 #include "taskwindow.h"
 #include "ui_taskwindow.h"
 #include "calendar.h"
+#include <QTextStream>
 #include <QtDebug>
 #include <QtSql>
 #include <QMessageBox>
 #include <QVector>
-
 
 TaskWindow::TaskWindow(QWidget *parent) :
     QWidget(parent),
@@ -24,6 +24,16 @@ TaskWindow::TaskWindow(QWidget *parent) :
 TaskWindow::~TaskWindow()
 {
     delete ui;
+}
+void TaskWindow::on_pushButton_clicked()
+{
+    //Open calendar for creating new task
+       acalendar = new calendar();
+       connect(acalendar, &calendar::windowClosed, this, &TaskWindow::returnToTaskWindow);
+       acalendar->show();
+
+    //Disable main window so that user doesn't edit it when making new task
+    this->setEnabled(false);
 }
 
 QString TaskWindow::createFilter(){
@@ -84,16 +94,6 @@ void TaskWindow::onDataChanged()
     ui->saveChangesButton->setEnabled(true);
 }
 
-void TaskWindow::on_pushButton_clicked()
-{
-    //Open calendar for creating new task
-       acalendar = new calendar();
-       connect(acalendar, &calendar::windowClosed, this, &TaskWindow::returnToTaskWindow);
-       acalendar->show();
-
-    //Disable main window so that user doesn't edit it when making new task
-    this->setEnabled(false);
-}
 
 void TaskWindow::returnToTaskWindow(){
     //This is called when creation of new task ends
@@ -175,23 +175,39 @@ void TaskWindow::on_revertChangesButton_clicked()
     //Revert changes and roll back
     model->revertAll();
     model->database().rollback();
+    //qDebug()<< "da revert thanh cong";
     refreshTable();
 }
 
 //Slots for the checkboxes used for filtering done and not done tasks
-void TaskWindow::on_showNotDoneCheckBox_stateChanged(int state)
+void TaskWindow::on_showNotDoneCheckBox_stateChanged(int task)
 {
-    if(state)
+    if(task)
+    {
         showNotDone = true;
+        //qDebug()<< "check thanh cong";
+    }
     else
+    {
         showNotDone = false;
+        //qDebug()<< "check khong thanh cong";
+    }
     refreshTable();
 }
-void TaskWindow::on_showDoneCheckBox_stateChanged(int state)
+
+void TaskWindow::on_showDoneCheckBox_stateChanged(int task)
 {
-    if(state)
+    //QTextStream(stdout) << task << endl; //check value off task
+    if(task)
+    {
         showDone = true;
+    }
     else
+    {
         showDone = false;
+        //qDebug()<< "check khong thanh cong";
+
+    }
     refreshTable();
 }
+

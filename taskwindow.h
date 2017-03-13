@@ -22,13 +22,9 @@ private slots:
     void on_pushButton_clicked();
     void on_saveChangesButton_clicked();
     void on_revertChangesButton_clicked();
-    void on_showNotDoneCheckBox_stateChanged(int arg1);
+    void on_showNotDoneCheckBox_stateChanged(int agr1);
     void on_showDoneCheckBox_stateChanged(int arg1);
     void onDataChanged();
-
-    void on_showNotDoneCheckBox_clicked();
-
-    void on_showDoneCheckBox_clicked();
 
 public slots:
     void returnToTaskWindow();
@@ -44,6 +40,7 @@ private:
     QString createFilter();
     QVector<int> checkDates();
     int showMsgBox(QString text, QString informativeText);
+
 
 };
 

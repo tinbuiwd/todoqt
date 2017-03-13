@@ -5,13 +5,24 @@
 
 bool init_db(){
     //initialize database and create the task table
-    QString db_name = "apptodo";
+    QString db_name = "todo_db";
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(db_name);
     if(!db.open()){
         return false;
     }
     QSqlQuery query;
+
+//    QSqlDatabase db;
+//        db = QSqlDatabase::addDatabase("QMYSQL");
+
+//        db.setHostName("192.168.119.1");
+//        db.setPort(3306);
+//        db.setDatabaseName("todo");
+//        db.setUserName("");
+//        db.setPassword("");
+//        qDebug()<<db.open();
+
     bool createTableSuccessful = query.exec("create table if not exists task " \
               "(id integer primary key, " \
               "description varchar(200), " \
@@ -19,10 +30,10 @@ bool init_db(){
               "deadline varchar(30))");
     db.close();
     if(!createTableSuccessful){
-        return false;
+       return false;
     }
 
-    return true;
+   return true;
 }
 
 int main(int argc, char *argv[])

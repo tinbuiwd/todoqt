@@ -29,7 +29,7 @@ void calendar::on_createButton_clicked()
     QString dateString = ui->calendarWidget->selectedDate().toString("dd.MM.yyyy");
 
     //Open db connection
-    QString db_name = "todoist_db";
+    QString db_name = "todo_db";
     QSqlDatabase db = QSqlDatabase::database(QSqlDatabase::defaultConnection);
     db.setDatabaseName(db_name);
     db.open();
